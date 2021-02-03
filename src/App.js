@@ -1,9 +1,10 @@
 import './App.css';
-import Form from "./components/form";
+import Login from './pages/Login';
+
 function App() {
   return ( 
     <>
-      <Form/>
+      <Login/>
     </>
   );
 }

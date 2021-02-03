@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable no-undef */
 describe('Form test', () => {
   it('Should return no errors', () => {

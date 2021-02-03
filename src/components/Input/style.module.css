@@ -1,0 +1,19 @@
+.input{
+    padding: 10px 12px;
+    border: none;
+    background: aliceblue;
+    border-radius: 5px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.input:focus{
+    border: none;
+    outline: none;
+}
+
+.label{
+    font-size: 15px;
+    margin: 6px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:white;
+}
