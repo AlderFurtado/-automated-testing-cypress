@@ -1,0 +1,18 @@
+.container{
+    background: #14213D;
+    height: 100%;
+    overflow: hidden;
+}
+
+.container_create_quiz{
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.add_question{
+    text-align: center;
+    margin: 10px;
+    color:#FCA311;
+    cursor: pointer;
+}

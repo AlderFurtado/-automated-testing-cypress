@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import Button from "../../components/Button";
+import FormCreateQuestion from "../../components/FormCreateQuestion";
 
 import socket from "../../services/socket/index";
+
+import style from "./style.module.css";
 
 function Main() {
   const history = useHistory();
@@ -36,7 +40,7 @@ function Main() {
   };
 
   return (
-    <>
+    <div className={style.container}>
       <h1>Welcome</h1>
       <h2>Room Name: {roomName} </h2>
       <h2>Player Name: {playerName} </h2>
@@ -47,7 +51,12 @@ function Main() {
           return <li key={id}>{name}</li>;
         })}
       </ul>
-    </>
+      <div className={style.container_create_quiz}>
+        <FormCreateQuestion />
+        <span className={style.add_question}>Add one more question</span>
+        <Button>Save Quiz</Button>
+      </div>
+    </div>
   );
 }
 
