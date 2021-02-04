@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import Input from "../Input/index";
 import Button from "../Button/index";
 import styles from "./style.module.css";
+import { useHistory } from "react-router-dom";
 
 export default function FormLogin() {
+  let history = useHistory();
+
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [roomName, setRoomName] = useState("");
 
   const handleForm = (e) => {
     e.preventDefault();
-    alert("Seja Bem-vindo(a)");
+    localStorage.setItem("roomName", roomName);
+    localStorage.setItem("playerName", name);
+
+    history.push("/");
   };
 
   return (
@@ -23,18 +28,11 @@ export default function FormLogin() {
         onChange={(e) => setName(e.target.value)}
       />
       <Input
-        name="Email"
-        type="email"
-        data-cy="input-email-login-form"
-        placeholder="Type your email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <Input
-        name="Password"
-        type="password"
-        data-cy="input-phone-login-form"
-        placeholder="Type your password"
-        onChange={(e) => setPhone(e.target.value)}
+        name="Room"
+        type="text"
+        data-cy="input-room-name-login-form"
+        placeholder="Type your room name"
+        onChange={(e) => setRoomName(e.target.value)}
       />
       <br></br>
       <Button type="submit" data-cy="input-submit-login-form">

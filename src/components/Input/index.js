@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./style.module.css";
-// import { Container } from './styles';
 
 function Input(props) {
   return (
