@@ -10,6 +10,11 @@
     padding: 12px;
 }
 
+.container_options{
+    display: flex;
+    justify-content: space-around;
+}
+
 .add_question{
     text-align: center;
     margin: 10px;

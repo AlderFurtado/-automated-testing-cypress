@@ -16,12 +16,13 @@ function Main() {
   const [roomName, setRoomName] = useState(
     !roomNamelocalStorage ? "No room" : roomNamelocalStorage
   );
-
   const [playerName, setPlayerName] = useState(
     !playerNamelocalStorage ? "No player name" : playerNamelocalStorage
   );
-
   const [playersConnected, setPlayersConnected] = useState([]);
+  const [quiz, setQuiz] = useState([
+    { question: "", helper: "", answers: [""] },
+  ]);
 
   useEffect(() => {
     connectRoomWebSocket();
@@ -34,9 +35,23 @@ function Main() {
 
   const getConnectedPlayers = () => {
     socket.on("connectedsRoom", (players) => {
-      console.log(players);
       setPlayersConnected(players);
     });
+  };
+
+  const copyLastQuestion = () => {
+    let lastQuestion = JSON.parse(JSON.stringify(quiz[quiz.length - 1]));
+    setQuiz([...quiz, lastQuestion]);
+  };
+
+  const addQuestion = () => {
+    setQuiz([...quiz, {}]);
+  };
+
+  const createQuiz = (sctucture, index) => {
+    let newQuiz = JSON.parse(JSON.stringify(quiz));
+    newQuiz[index] = sctucture;
+    setQuiz(newQuiz);
   };
 
   return (
@@ -46,14 +61,29 @@ function Main() {
       <h2>Player Name: {playerName} </h2>
 
       <h3>Jogadores connectados</h3>
-      <ul>
-        {playersConnected?.map(({ name, id }) => {
-          return <li key={id}>{name}</li>;
+      {/* <ul>
+        {playersConnected?.map(({ name, id }, index) => {
+          return <li key={`player ${index}`}>{name}</li>;
         })}
-      </ul>
+      </ul> */}
       <div className={style.container_create_quiz}>
-        <FormCreateQuestion />
-        <span className={style.add_question}>Add one more question</span>
+        {quiz.map((v, i) => {
+          return (
+            <FormCreateQuestion
+              createQuiz={createQuiz}
+              index={i}
+              copyQuiz={quiz[i]}
+            />
+          );
+        })}
+        <div className={style.container_options}>
+          <span className={style.add_question} onClick={addQuestion}>
+            Add one more question
+          </span>
+          <span className={style.add_question} onClick={copyLastQuestion}>
+            Copy the last question
+          </span>
+        </div>
         <Button>Save Quiz</Button>
       </div>
     </div>
