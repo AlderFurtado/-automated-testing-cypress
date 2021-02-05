@@ -3,41 +3,12 @@ import { useHistory } from "react-router-dom";
 import Button from "../../components/Button";
 import FormCreateQuestion from "../../components/FormCreateQuestion";
 
-import socket from "../../services/socket/index";
-
 import style from "./style.module.css";
 
 function Main() {
-  const history = useHistory();
-
-  const roomNamelocalStorage = localStorage.getItem("roomName");
-  const playerNamelocalStorage = localStorage.getItem("playerName");
-
-  const [roomName, setRoomName] = useState(
-    !roomNamelocalStorage ? "No room" : roomNamelocalStorage
-  );
-  const [playerName, setPlayerName] = useState(
-    !playerNamelocalStorage ? "No player name" : playerNamelocalStorage
-  );
-  const [playersConnected, setPlayersConnected] = useState([]);
   const [quiz, setQuiz] = useState([
     { question: "", helper: "", answers: [""] },
   ]);
-
-  useEffect(() => {
-    connectRoomWebSocket();
-    getConnectedPlayers();
-  }, []);
-
-  const connectRoomWebSocket = () => {
-    socket.emit("room", playerName);
-  };
-
-  const getConnectedPlayers = () => {
-    socket.on("connectedsRoom", (players) => {
-      setPlayersConnected(players);
-    });
-  };
 
   const copyLastQuestion = () => {
     let lastQuestion = JSON.parse(JSON.stringify(quiz[quiz.length - 1]));
@@ -56,16 +27,6 @@ function Main() {
 
   return (
     <div className={style.container}>
-      <h1>Welcome</h1>
-      <h2>Room Name: {roomName} </h2>
-      <h2>Player Name: {playerName} </h2>
-
-      <h3>Jogadores connectados</h3>
-      {/* <ul>
-        {playersConnected?.map(({ name, id }, index) => {
-          return <li key={`player ${index}`}>{name}</li>;
-        })}
-      </ul> */}
       <div className={style.container_create_quiz}>
         {quiz.map((v, i) => {
           return (
